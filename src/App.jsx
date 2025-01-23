@@ -7,13 +7,24 @@ function App() {
       name: "Movies",
       folder: [
         { name: "Action" },
-        { name: "Adventure" },
+        {
+          name: "Adventure",
+          folder: [{ name: "2000s" }, { name: "2010s" }, { name: "1990s" }],
+        },
         { name: "Mystery" },
         { name: "Crime" },
       ],
     },
     { name: "Music" },
-    { name: "Books" },
+    {
+      name: "Books",
+      folder: [
+        { name: "Novel" },
+        { name: "Tales" },
+        { name: "Poetic" },
+        { name: "Crime" },
+      ],
+    },
     { name: "Apps" },
   ];
 
@@ -27,8 +38,19 @@ function App() {
           </span>
         </li>
       </ul>
+
+      <Folder folder={folder} />
+    </div>
+  );
+}
+
+export default App;
+
+function Folder({ folder }) {
+  return (
+    <div>
       <ul>
-        {folder.map((folder) => (
+        {folder?.map((folder) => (
           <li key={folder.name}>
             <span>
               <FolderIcon />
@@ -36,14 +58,7 @@ function App() {
             </span>
 
             <ul>
-              {folder.folder?.map((folder) => (
-                <li key={folder.name}>
-                  <span>
-                    <FolderIcon />
-                    {folder.name}
-                  </span>
-                </li>
-              ))}
+              <Folder folder={folder.folder} />
             </ul>
           </li>
         ))}
@@ -51,5 +66,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
